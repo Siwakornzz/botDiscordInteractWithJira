@@ -1,9 +1,9 @@
 // @ts-nocheck
 require("dotenv").config();
-const { Client } = require("discord.js");
+const { Client, MessageEmbed } = require("discord.js");
 const client = new Client();
 const config = process.env;
-const app = require("./app");
+require("./app");
 
 client.on("ready", async () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -17,9 +17,36 @@ client.on("ready", async () => {
       // console.log("userId : ", iterator[0]);
       user = client.users.cache.get(iterator[0]);
       if (user) {
+        const exampleEmbed = new MessageEmbed()
+          .setColor("#0099ff")
+          .setTitle("Custom Template")
+          .setDescription(
+            "This is a custom message template created using Discord.js"
+          )
+          .setThumbnail("https://i.imgur.com/wSTFkRM.png")
+          .addFields(
+            { name: "Regular field title", value: "Some value here" },
+            { name: "\u200B", value: "\u200B" },
+            {
+              name: "Inline field title",
+              value: "Some value here",
+              inline: true,
+            },
+            {
+              name: "Inline field title",
+              value: "Some value here",
+              inline: true,
+            }
+          )
+          .setImage("https://i.imgur.com/wSTFkRM.png")
+          .setTimestamp()
+          .setFooter(
+            "Custom Template Footer Text",
+            "https://i.imgur.com/wSTFkRM.png"
+          );
         // console.log(user);
         user.createDM().then((dmChannel) => {
-          dmChannel.send(":)");
+          dmChannel.send(exampleEmbed);
         });
       } else {
         console.log("not found");

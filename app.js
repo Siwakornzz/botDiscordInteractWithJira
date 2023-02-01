@@ -5,6 +5,11 @@ const config = process.env;
 
 const app = express();
 app.use(bodyParser.json());
+
+app.get("/", async (req, res) => {
+  res.status(201).end();
+});
+
 app.post("/webhook", async (req, res) => {
   const issueEventTypeName = await req.body["issue_event_type_name"];
   console.log(Object.keys(req.body));
